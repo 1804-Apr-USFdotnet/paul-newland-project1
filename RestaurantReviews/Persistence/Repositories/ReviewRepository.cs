@@ -16,12 +16,17 @@ namespace RestaurantReviews.Persistence.Repositories
 
         public void UpdateReviewDescription(int id, string description)
         {
-            throw new NotImplementedException();
+            GetReview(id).Description = description;
         }
 
         public void UpdateReviewRating(int id, int rating)
         {
-            throw new NotImplementedException();
+            GetReview(id).Rating = rating;
+        }
+
+        private Review GetReview(int id)
+        {
+            return Context.Reviews.Find(id);
         }
     }
 }

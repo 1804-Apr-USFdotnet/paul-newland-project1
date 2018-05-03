@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using RestaurantReviews.Core.Domain;
@@ -16,22 +17,33 @@ namespace RestaurantReviews.Persistence.Repositories
 
         public IEnumerable<Restaurant> GetTopRatedRestaurants(int count)
         {
-            throw new NotImplementedException();
+            return Context.Restaurants
+                .Include(r => r.Reviews)
+                .OrderByDescending(r => GetAverageRating(r))
+                .Take(count);
         }
 
         public IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ()
         {
-            throw new NotImplementedException();
+            return Context.Restaurants
+                .OrderBy(r => r.Name);
         }
 
         public IEnumerable<Restaurant> GetRestaurantsSortedByNameZA()
         {
-            throw new NotImplementedException();
+            return Context.Restaurants
+                .OrderByDescending(r => r.Name);
         }
 
         public void UpdateRestaurantName(int id, string newName)
         {
-            throw new NotImplementedException();
+            var r = Context.Restaurants.Find(id);
+            r.Name = newName;
+        }
+
+        private double GetAverageRating(Restaurant restaurant)
+        {
+            return restaurant.Reviews.Average(r => r.Rating);
         }
     }
 }
