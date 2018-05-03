@@ -20,25 +20,29 @@ namespace RestaurantReviews.Persistence.Repositories
             return Context.Restaurants
                 .Include(r => r.Reviews)
                 .OrderByDescending(r => GetAverageRating(r))
-                .Take(count);
+                .Take(count)
+                .ToList();
         }
 
         public IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ()
         {
             return Context.Restaurants
-                .OrderBy(r => r.Name);
+                .OrderBy(r => r.Name)
+                .ToList();
         }
 
         public IEnumerable<Restaurant> GetRestaurantsSortedByNameZA()
         {
             return Context.Restaurants
-                .OrderByDescending(r => r.Name);
+                .OrderByDescending(r => r.Name)
+                .ToList();
         }
 
         public void UpdateRestaurantName(int id, string newName)
         {
             var r = Context.Restaurants.Find(id);
-            r.Name = newName;
+            if(r != null)
+                r.Name = newName;
         }
 
         private double GetAverageRating(Restaurant restaurant)

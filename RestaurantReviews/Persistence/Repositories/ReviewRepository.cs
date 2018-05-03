@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using NLog;
 using RestaurantReviews.Core.Domain;
 using RestaurantReviews.Core.Repositories;
 
@@ -9,6 +10,8 @@ namespace RestaurantReviews.Persistence.Repositories
 {
     public class ReviewRepository : Repository<Review>, IReviewRepository
     {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public ReviewRepository(ApplicationDbContext context)
             : base(context)
         {
@@ -16,12 +19,26 @@ namespace RestaurantReviews.Persistence.Repositories
 
         public void UpdateReviewDescription(int id, string description)
         {
-            GetReview(id).Description = description;
+            try
+            {
+                GetReview(id).Description = description;
+            }
+            catch (NullReferenceException e)
+            {
+                _logger.Error(e.Message);
+            }
         }
 
         public void UpdateReviewRating(int id, int rating)
         {
-            GetReview(id).Rating = rating;
+            try
+            {
+                GetReview(id).Rating = rating;
+            }
+            catch (NullReferenceException e)
+            {
+                _logger.Error(e.Message);
+            }
         }
 
         private Review GetReview(int id)
