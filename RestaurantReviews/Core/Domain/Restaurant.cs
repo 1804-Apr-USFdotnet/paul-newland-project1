@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RestaurantReviews.Models
+namespace RestaurantReviews.Core.Domain
 {
     public class Restaurant
     {
