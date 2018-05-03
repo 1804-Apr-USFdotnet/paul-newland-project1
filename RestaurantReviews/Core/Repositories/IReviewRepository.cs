@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using RestaurantReviews.Core.Domain;
 
 namespace RestaurantReviews.Core.Repositories
 {
-    public interface IReviewRepository
+    public interface IReviewRepository : IRepository<Review>
     {
+        void UpdateReviewDescription(int id, string description);
+        void UpdateReviewRating(int id, int rating);
     }
 }

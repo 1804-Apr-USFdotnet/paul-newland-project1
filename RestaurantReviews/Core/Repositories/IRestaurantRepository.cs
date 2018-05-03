@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using RestaurantReviews.Core.Domain;
 
 namespace RestaurantReviews.Core.Repositories
 {
-    public interface IRestaurantRepository
+    public interface IRestaurantRepository : IRepository<Restaurant>
     {
+        IEnumerable<Restaurant> GetTopRatedRestaurants(int count);
+
+        IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ();
+        IEnumerable<Restaurant> GetRestaurantsSortedByNameZA();
+
+        void UpdateRestaurantName(int id, string newName);
     }
 }
