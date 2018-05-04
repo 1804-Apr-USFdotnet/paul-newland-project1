@@ -5,14 +5,14 @@ namespace RestaurantReviews.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RestaurantReviews.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<RestaurantReviews.Persistence.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(RestaurantReviews.Models.ApplicationDbContext context)
+        protected override void Seed(RestaurantReviews.Persistence.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

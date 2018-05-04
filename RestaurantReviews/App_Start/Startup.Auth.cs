@@ -5,7 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using RestaurantReviews.Models;
+using RestaurantReviews.Core.Domain;
+using RestaurantReviews.Persistence;
 
 namespace RestaurantReviews
 {

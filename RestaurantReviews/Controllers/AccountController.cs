@@ -8,7 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using RestaurantReviews.Models;
+using RestaurantReviews.Core.Domain;
+using RestaurantReviews.ViewModels;
 
 namespace RestaurantReviews.Controllers
 {
