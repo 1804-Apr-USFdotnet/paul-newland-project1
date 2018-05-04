@@ -10,6 +10,6 @@ namespace RestaurantReviews.Core.Repositories
         IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ();
         IEnumerable<Restaurant> GetRestaurantsSortedByNameZA();
 
-        void UpdateRestaurantName(int id, string newName);
+        void Update(Restaurant restaurant);
     }
 }

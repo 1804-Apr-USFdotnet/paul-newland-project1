@@ -38,11 +38,18 @@ namespace RestaurantReviews.Persistence.Repositories
                 .ToList();
         }
 
-        public void UpdateRestaurantName(int id, string newName)
+        public void Update(Restaurant restaurant)
         {
-            var r = Context.Restaurants.Find(id);
-            if(r != null)
-                r.Name = newName;
+            var restaurantInDb = Context.Restaurants.SingleOrDefault(r => r.Id == restaurant.Id);
+
+            //restaurantInDb.Name = restaurant.Name;
+            //restaurantInDb.Phone = restaurant.Phone;
+            //restaurantInDb.Street = restaurant.Street;
+            //restaurantInDb.City = restaurant.City;
+            //restaurantInDb.State = restaurant.State;
+            //restaurantInDb.Zip = restaurant.Zip;
+
+            Context.Entry(restaurantInDb).CurrentValues.SetValues(restaurant);
         }
 
         private double GetAverageRating(Restaurant restaurant)
