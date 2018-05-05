@@ -200,6 +200,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Core\Domain\RoleName.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Core\Repositories\IRestaurantRepository.cs" />
@@ -215,7 +217,12 @@
     <Compile Include="Migrations\201805041510270_InitialRestaurantReferenceData.Designer.cs">
       <DependentUpon>201805041510270_InitialRestaurantReferenceData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805051722435_InitialUsersReferenceData.cs" />
+    <Compile Include="Migrations\201805051722435_InitialUsersReferenceData.Designer.cs">
+      <DependentUpon>201805051722435_InitialUsersReferenceData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Core\IWithId.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\Repositories\RestaurantRepository.cs" />
     <Compile Include="Persistence\Repositories\ReviewRepository.cs" />
@@ -294,6 +301,12 @@
     <Content Include="Views\Restaurants\Show.cshtml" />
     <Content Include="Views\Restaurants\New.cshtml" />
     <Content Include="Views\Restaurants\Edit.cshtml" />
+    <Content Include="Views\Reviews\UserReviewsIndex.cshtml" />
+    <Content Include="Views\Reviews\RestaurantReviewsIndex.cshtml" />
+    <Content Include="Views\Reviews\Show.cshtml" />
+    <Content Include="Views\Reviews\New.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Restaurants\IndexAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805041510270_InitialRestaurantReferenceData.resx">
       <DependentUpon>201805041510270_InitialRestaurantReferenceData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805051722435_InitialUsersReferenceData.resx">
+      <DependentUpon>201805051722435_InitialUsersReferenceData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

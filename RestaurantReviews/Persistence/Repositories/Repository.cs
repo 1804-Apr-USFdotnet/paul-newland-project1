@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using NLog;
 using RestaurantReviews.Core.Repositories;
+using RestaurantReviews.Core;
 
 namespace RestaurantReviews.Persistence.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IWithId
     {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         protected readonly ApplicationDbContext Context;
 
         public Repository(ApplicationDbContext context)
@@ -49,6 +52,19 @@ namespace RestaurantReviews.Persistence.Repositories
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public void Update(TEntity entity)
+        {
+            try
+            {
+                var entityInDb = Context.Set<TEntity>().Find(entity.Id);
+                Context.Entry(entityInDb).CurrentValues.SetValues(entity);
+            }
+            catch (NullReferenceException e)
+            {
+                _logger.Error(e.Message);
+            }
         }
     }
 }

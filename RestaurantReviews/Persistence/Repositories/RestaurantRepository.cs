@@ -38,21 +38,7 @@ namespace RestaurantReviews.Persistence.Repositories
                 .ToList();
         }
 
-        public void Update(Restaurant restaurant)
-        {
-            var restaurantInDb = Context.Restaurants.SingleOrDefault(r => r.Id == restaurant.Id);
-
-            //restaurantInDb.Name = restaurant.Name;
-            //restaurantInDb.Phone = restaurant.Phone;
-            //restaurantInDb.Street = restaurant.Street;
-            //restaurantInDb.City = restaurant.City;
-            //restaurantInDb.State = restaurant.State;
-            //restaurantInDb.Zip = restaurant.Zip;
-
-            Context.Entry(restaurantInDb).CurrentValues.SetValues(restaurant);
-        }
-
-        private double GetAverageRating(Restaurant restaurant)
+        private static double GetAverageRating(Restaurant restaurant)
         {
             return restaurant.Reviews.Average(r => r.Rating);
         }

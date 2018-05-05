@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<RestaurantReviews.Core.Domain.Restaurant>
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "IndexAdmin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Restaurants</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -51,7 +54,9 @@
             @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.ActionLink("Details", "Show", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Show", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

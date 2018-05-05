@@ -26,21 +26,26 @@ namespace RestaurantReviews.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [AllowAnonymous]
         [Route("restaurants")]
         public ActionResult Index()
         {
             var restaurants = _unitOfWork.Restaurants.GetAll();
-            return View(restaurants);
+            return User.Identity.IsAuthenticated && User.IsInRole(RoleName.CanManageRestaurants)
+                ? View("IndexAdmin", restaurants)
+                : View(restaurants);
         }
 
         [HttpGet]
-        [Route("restaurants/{id}")]
+        [AllowAnonymous]
+        [Route("restaurants/details/{id}")]
         public ActionResult Show(int id)
         {
             var restaurant = _unitOfWork.Restaurants.Get(id);
             return View(restaurant);
         }
-
+        
+        [Authorize(Roles = RoleName.CanManageRestaurants)]
         [Route("restaurants/new")]
         public ActionResult New()
         {
@@ -50,6 +55,7 @@ namespace RestaurantReviews.Controllers
         [HttpPost]
         [Route("restaurants")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageRestaurants)]
         public ActionResult Create(Restaurant restaurant)
         {
             if (!ModelState.IsValid)
@@ -62,6 +68,7 @@ namespace RestaurantReviews.Controllers
         }
 
         [Route("restaurants/{id}/edit")]
+        [Authorize(Roles = RoleName.CanManageRestaurants)]
         public ActionResult Edit(int id)
         {
             var restaurant = _unitOfWork.Restaurants.Get(id);
@@ -69,8 +76,9 @@ namespace RestaurantReviews.Controllers
         }
 
         [HttpPost]
-        [Route("restaurants/update")]
         [ValidateAntiForgeryToken]
+        [Route("restaurants/update")]
+        [Authorize(Roles = RoleName.CanManageRestaurants)]
         public ActionResult Update(Restaurant restaurant)
         {
             if (!ModelState.IsValid)
@@ -85,6 +93,7 @@ namespace RestaurantReviews.Controllers
         // really should be a delete method, not get, but priorities
         [HttpGet]
         [Route("restaurants/delete/{id}")]
+        [Authorize(Roles = RoleName.CanManageRestaurants)]
         public ActionResult Delete(int id)
         {
             var restaurant = _unitOfWork.Restaurants.Get(id);

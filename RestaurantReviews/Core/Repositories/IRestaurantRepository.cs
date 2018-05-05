@@ -9,7 +9,5 @@ namespace RestaurantReviews.Core.Repositories
 
         IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ();
         IEnumerable<Restaurant> GetRestaurantsSortedByNameZA();
-
-        void Update(Restaurant restaurant);
     }
 }

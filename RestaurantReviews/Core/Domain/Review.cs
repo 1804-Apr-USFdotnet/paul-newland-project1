@@ -5,7 +5,7 @@ using System.Web;
 
 namespace RestaurantReviews.Core.Domain
 {
-    public class Review
+    public class Review : IWithId
     {
         public int Id { get; set; }
         public string Description { get; set; }

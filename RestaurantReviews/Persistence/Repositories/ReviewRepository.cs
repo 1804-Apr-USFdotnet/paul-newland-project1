@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using NLog;
@@ -17,33 +18,16 @@ namespace RestaurantReviews.Persistence.Repositories
         {
         }
 
-        public void UpdateReviewDescription(int id, string description)
+        public IEnumerable<Review> GetReviewsByUser(int userId)
         {
-            try
-            {
-                GetReview(id).Description = description;
-            }
-            catch (NullReferenceException e)
-            {
-                _logger.Error(e.Message);
-            }
+            var user = Context.Users.Find(userId);
+            return Context.Reviews.Where(r => r.UserId == user.Id).ToList();
         }
 
-        public void UpdateReviewRating(int id, int rating)
+        public IEnumerable<Review> GetReviewsByRestaurant(int restaurantId)
         {
-            try
-            {
-                GetReview(id).Rating = rating;
-            }
-            catch (NullReferenceException e)
-            {
-                _logger.Error(e.Message);
-            }
-        }
-
-        private Review GetReview(int id)
-        {
-            return Context.Reviews.Find(id);
+            var restaurant = Context.Restaurants.Find(restaurantId);
+            return Context.Reviews.Where(r => r.RestaurantId == restaurant.Id).ToList();
         }
     }
 }

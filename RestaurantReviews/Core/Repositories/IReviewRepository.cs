@@ -5,7 +5,7 @@ namespace RestaurantReviews.Core.Repositories
 {
     public interface IReviewRepository : IRepository<Review>
     {
-        void UpdateReviewDescription(int id, string description);
-        void UpdateReviewRating(int id, int rating);
+        IEnumerable<Review> GetReviewsByUser(int userId);
+        IEnumerable<Review> GetReviewsByRestaurant(int restaurantId);
     }
 }
