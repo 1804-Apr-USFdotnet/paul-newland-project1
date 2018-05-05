@@ -90,7 +90,7 @@ namespace RestaurantReviews.Controllers
             return RedirectToAction("Index", "Restaurants");
         }
 
-        // really should be a delete method, not get, but priorities
+        // really should be http delete method, not get, but priorities
         [HttpGet]
         [Route("restaurants/delete/{id}")]
         [Authorize(Roles = RoleName.CanManageRestaurants)]

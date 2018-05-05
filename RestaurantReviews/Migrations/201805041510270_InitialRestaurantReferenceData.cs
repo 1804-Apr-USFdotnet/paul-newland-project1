@@ -36,7 +36,7 @@ namespace RestaurantReviews.Migrations
         {
             foreach (var r in _restaurants)
             {
-                Sql($"DELETE FROM Addresses WHERE Street = {r.Street} AND Name = {r.Name}");
+                Sql($"DELETE FROM Restaurants WHERE Street = {r.Street} AND Name = {r.Name}");
             }
         }
     }
