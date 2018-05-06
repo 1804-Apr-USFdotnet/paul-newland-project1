@@ -19,7 +19,7 @@ namespace RestaurantReviews.Persistence.Repositories
         {
             return Context.Restaurants
                 .Include(r => r.Reviews)
-                .OrderByDescending(r => GetAverageRating(r))
+                .OrderByDescending(r => r.Reviews.Average(rev => rev.Rating))
                 .Take(count)
                 .ToList();
         }
