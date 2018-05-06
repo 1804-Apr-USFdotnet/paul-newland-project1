@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using RestaurantReviews.Core;
 using RestaurantReviews.Core.Domain;
 using RestaurantReviews.Persistence;
+using RestaurantReviews.ViewModels;
 
 namespace RestaurantReviews.Controllers
 {
@@ -41,8 +42,10 @@ namespace RestaurantReviews.Controllers
         [Route("restaurants/details/{id}")]
         public ActionResult Show(int id)
         {
-            var restaurant = _unitOfWork.Restaurants.Get(id);
-            return View(restaurant);
+            var restaurant = _unitOfWork.Restaurants.GetWithReviews(id);
+            var avgRating = _unitOfWork.Restaurants.GetAverageRating(restaurant).ToString("#.##");
+            var vm = new ShowRestaurantViewModel() {Restaurant = restaurant, AverageRating = avgRating};
+            return View(vm);
         }
         
         [Authorize(Roles = RoleName.CanManageRestaurants)]

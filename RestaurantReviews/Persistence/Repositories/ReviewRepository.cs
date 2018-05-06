@@ -18,7 +18,7 @@ namespace RestaurantReviews.Persistence.Repositories
         {
         }
 
-        public IEnumerable<Review> GetReviewsByUser(int userId)
+        public IEnumerable<Review> GetReviewsByUser(string userId)
         {
             var user = Context.Users.Find(userId);
             return Context.Reviews.Where(r => r.UserId == user.Id).ToList();

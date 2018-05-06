@@ -1,67 +1,96 @@
-﻿@model RestaurantReviews.Core.Domain.Restaurant
+﻿@using Microsoft.AspNet.Identity
+@using RestaurantReviews.Core.Domain
+@model RestaurantReviews.ViewModels.ShowRestaurantViewModel
 
 @{
     ViewBag.Title = "Show";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Show</h2>
+<h2>@Model.Restaurant.Name</h2>
 
+<h3>Rating: @Model.AverageRating</h3>
+
+<h3>Reviews</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Description
+        </th>
+        <th>
+            Rating
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Restaurant.Reviews)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            @if (User.Identity.GetUserId() == item.UserId || User.IsInRole(RoleName.CanManageRestaurants))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Reviews", new {id = item.Id}, null) |
+                    @Html.ActionLink("Delete", "Delete", "Reviews", new {id = item.Id}, null)
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+
+<h3>General Info</h3>
 <div>
-    <h4>Restaurant</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Restaurant.Street)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Restaurant.Street)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.DisplayNameFor(model => model.Restaurant.City)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Street)
+            @Html.DisplayFor(model => model.Restaurant.City)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.Restaurant.State)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Restaurant.State)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.Restaurant.Zip)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.State)
+            @Html.DisplayFor(model => model.Restaurant.Zip)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Zip)
+            @Html.DisplayNameFor(model => model.Restaurant.Phone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Zip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.Restaurant.Phone)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Restaurant.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

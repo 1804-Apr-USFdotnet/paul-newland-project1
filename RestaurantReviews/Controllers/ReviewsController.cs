@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Microsoft.AspNet.Identity;
 using RestaurantReviews.Core;
 using RestaurantReviews.Core.Domain;
 using RestaurantReviews.Persistence;
@@ -27,32 +29,10 @@ namespace RestaurantReviews.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("restaurants/{restaurantId}/reviews")]
-        public ActionResult RestaurantReviewsIndex(int restaurantId)
-        {
-            var reviews = _unitOfWork.Reviews.GetReviewsByRestaurant(restaurantId);
-            return View(reviews);
-        }
-
-        [Route("users/{userId}/reviews")]
-        public ActionResult UserReviewsIndex(int userId)
-        {
-            var reviews = _unitOfWork.Reviews.GetReviewsByUser(userId);
-            return View(reviews);
-        }
-
         [Route("reviews/new")]
         public ActionResult New()
         {
             return View();
-        }
-
-        [HttpGet]
-        [Route("reviews/{id}")]
-        public ActionResult Show(int id)
-        {
-            var review = _unitOfWork.Reviews.Get(id);
-            return View(review);
         }
 
         [HttpPost]
@@ -66,14 +46,16 @@ namespace RestaurantReviews.Controllers
             _unitOfWork.Reviews.Add(review);
             _unitOfWork.Complete();
 
-            return RedirectToAction("UserReviewsIndex", "Reviews");
+            return RedirectToAction("Index", "Restaurants");
         }
 
         [Route("reviews/{id}/edit")]
         public ActionResult Edit(int id)
         {
             var review = _unitOfWork.Reviews.Get(id);
-            return View(review);
+            if (User.Identity.GetUserId() == review.UserId || User.IsInRole(RoleName.CanManageRestaurants))
+                return View(review);
+            return RedirectToAction("Index", "Restaurants");
         }
 
         [HttpPost]
@@ -83,11 +65,13 @@ namespace RestaurantReviews.Controllers
         {
             if (!ModelState.IsValid)
                 return RedirectToAction("Edit", review);
-
+            if (User.Identity.GetUserId() != review.UserId && !User.IsInRole(RoleName.CanManageRestaurants))
+                return RedirectToAction("Index", "Restaurants");
             _unitOfWork.Reviews.Update(review);
             _unitOfWork.Complete();
 
             return RedirectToAction("Index", "Restaurants");
+
         }
 
         // really should be a delete method, not get, but priorities
@@ -95,8 +79,10 @@ namespace RestaurantReviews.Controllers
         [Route("reviews/delete/{id}")]
         public ActionResult Delete(int id)
         {
-            var restaurant = _unitOfWork.Restaurants.Get(id);
-            _unitOfWork.Restaurants.Remove(restaurant);
+            var review = _unitOfWork.Reviews.Get(id);
+            if (User.Identity.GetUserId() != review.UserId || !User.IsInRole(RoleName.CanManageRestaurants))
+                return RedirectToAction("Index", "Restaurants");
+            _unitOfWork.Reviews.Remove(review);
             _unitOfWork.Complete();
 
             return RedirectToAction("Index", "Restaurants");

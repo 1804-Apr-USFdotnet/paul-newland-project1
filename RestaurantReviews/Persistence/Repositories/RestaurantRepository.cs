@@ -38,9 +38,14 @@ namespace RestaurantReviews.Persistence.Repositories
                 .ToList();
         }
 
-        private static double GetAverageRating(Restaurant restaurant)
+        public double GetAverageRating(Restaurant restaurant)
         {
             return restaurant.Reviews.Average(r => r.Rating);
+        }
+
+        public Restaurant GetWithReviews(int id)
+        {
+            return Context.Restaurants.Include(r => r.Reviews).SingleOrDefault(r => r.Id == id);
         }
     }
 }

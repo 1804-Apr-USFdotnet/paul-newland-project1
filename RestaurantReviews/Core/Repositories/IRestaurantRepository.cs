@@ -9,5 +9,9 @@ namespace RestaurantReviews.Core.Repositories
 
         IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ();
         IEnumerable<Restaurant> GetRestaurantsSortedByNameZA();
+
+        double GetAverageRating(Restaurant restaurant);
+
+        Restaurant GetWithReviews(int id);
     }
 }
