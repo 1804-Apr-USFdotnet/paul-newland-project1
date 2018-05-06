@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using RestaurantReviews.Core;
 using RestaurantReviews.Core.Domain;
 using RestaurantReviews.Persistence;
+using RestaurantReviews.ViewModels;
 
 namespace RestaurantReviews.Controllers
 {
@@ -29,10 +30,11 @@ namespace RestaurantReviews.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("reviews/new")]
-        public ActionResult New()
+        [Route("reviews/new/{restaurantId}")]
+        public ActionResult New(int restaurantId)
         {
-            return View();
+            var r = new Review() {RestaurantId = restaurantId};
+            return View(r);
         }
 
         [HttpPost]
@@ -43,6 +45,7 @@ namespace RestaurantReviews.Controllers
             if (!ModelState.IsValid)
                 return RedirectToAction("New", review);
 
+            review.UserId = User.Identity.GetUserId();
             _unitOfWork.Reviews.Add(review);
             _unitOfWork.Complete();
 

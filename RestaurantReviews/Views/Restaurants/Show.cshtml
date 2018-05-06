@@ -44,6 +44,11 @@
 
 </table>
 
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Add Review", "New", "Reviews", new {restaurantId = Model.Restaurant.Id}, null)
+}
+
 <h3>General Info</h3>
 <div>
     <hr />
@@ -91,6 +96,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Restaurant.Id }) |
+    @if (User.Identity.IsAuthenticated && User.IsInRole(RoleName.CanManageRestaurants))
+    {
+        <span>@Html.ActionLink("Edit", "Edit", new { id = Model.Restaurant.Id }) | </span>
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
