@@ -29,9 +29,12 @@ namespace RestaurantReviews.Controllers
 
         [AllowAnonymous]
         [Route("restaurants")]
-        public ActionResult Index()
+        public ActionResult Index(string query = null)
         {
-            var restaurants = _unitOfWork.Restaurants.GetAll();
+            var restaurants = query != null
+                ? _unitOfWork.Restaurants.SearchRestaurantsByName(query)
+                : _unitOfWork.Restaurants.GetAll();
+
             return User.Identity.IsAuthenticated && User.IsInRole(RoleName.CanManageRestaurants)
                 ? View("IndexAdmin", restaurants)
                 : View(restaurants);

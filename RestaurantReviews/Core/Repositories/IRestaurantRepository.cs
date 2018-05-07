@@ -7,6 +7,8 @@ namespace RestaurantReviews.Core.Repositories
     {
         IEnumerable<Restaurant> GetTopRatedRestaurants(int count);
 
+        IEnumerable<Restaurant> SearchRestaurantsByName(string query);
+        
         IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ();
         IEnumerable<Restaurant> GetRestaurantsSortedByNameZA();
 

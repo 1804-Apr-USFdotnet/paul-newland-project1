@@ -4,8 +4,21 @@
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>
+    @Html.ActionLink("Restaurants", "Index", "Restaurants")
+</h2>
+<h6>(click to reset search)</h6>
 
-<h2>Restaurants</h2>
+<hr />
+
+@using (Html.BeginForm("Index", "Restaurants", FormMethod.Get))
+{
+    <div class="form-group">
+        <input class="form-control" name="query" type="text"/>
+        <br />
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+}
 
 <table class="table">
     <tr>

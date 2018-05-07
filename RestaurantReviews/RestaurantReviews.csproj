@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201805051940200_InitialReviewsReferenceData.Designer.cs">
       <DependentUpon>201805051940200_InitialReviewsReferenceData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805071446477_AddConstraintsToReviewsAndRestaurants.cs" />
+    <Compile Include="Migrations\201805071446477_AddConstraintsToReviewsAndRestaurants.Designer.cs">
+      <DependentUpon>201805071446477_AddConstraintsToReviewsAndRestaurants.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\IWithId.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
@@ -339,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805051940200_InitialReviewsReferenceData.resx">
       <DependentUpon>201805051940200_InitialReviewsReferenceData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805071446477_AddConstraintsToReviewsAndRestaurants.resx">
+      <DependentUpon>201805071446477_AddConstraintsToReviewsAndRestaurants.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

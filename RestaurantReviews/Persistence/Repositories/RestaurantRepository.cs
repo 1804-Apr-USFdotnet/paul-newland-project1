@@ -24,6 +24,14 @@ namespace RestaurantReviews.Persistence.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Restaurant> SearchRestaurantsByName(string query)
+        {
+            return Context.Restaurants
+                .Where(r => r.Name.ToLower()
+                    .Contains(query.ToLower()))
+                .ToList();
+        }
+
         public IEnumerable<Restaurant> GetRestaurantsSortedByNameAZ()
         {
             return Context.Restaurants

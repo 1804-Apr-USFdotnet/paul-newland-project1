@@ -10,11 +10,11 @@
 @using (Html.BeginForm("Update", "Restaurants"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Restaurant</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "Please correct the following errors.")
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
@@ -76,3 +76,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
