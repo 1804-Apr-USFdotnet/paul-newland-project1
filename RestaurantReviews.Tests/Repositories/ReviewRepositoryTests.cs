@@ -7,7 +7,12 @@ namespace RestaurantReviews.Tests.Repositories
     public class ReviewRepositoryTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetReviewsByUserTest()
+        {
+        }
+
+        [TestMethod]
+        public void GetReviewsByRestaurantTest()
         {
         }
     }

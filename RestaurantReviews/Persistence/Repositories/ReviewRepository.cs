@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using NLog;
 using RestaurantReviews.Core.Domain;
 using RestaurantReviews.Core.Repositories;
 
@@ -11,8 +10,6 @@ namespace RestaurantReviews.Persistence.Repositories
 {
     public class ReviewRepository : Repository<Review>, IReviewRepository
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-
         public ReviewRepository(ApplicationDbContext context)
             : base(context)
         {
