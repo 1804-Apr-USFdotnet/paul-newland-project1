@@ -313,6 +313,7 @@
     <Content Include="Views\Reviews\New.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Restaurants\IndexAdmin.cshtml" />
+    <Content Include="Views\Shared\_Nav.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
