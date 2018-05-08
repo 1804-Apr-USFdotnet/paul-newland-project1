@@ -5,7 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Restaurants</h2>
+<h2>
+    @Html.ActionLink("Restaurants", "Index", "Restaurants")
+</h2>
+<h6>(click to reset sorting)</h6>
+
+<hr />
+
+@using (Html.BeginForm("Index", "Restaurants", FormMethod.Get))
+{
+    <div class="form-group">
+        <input name="sort" value="AZ" type="hidden" />
+        <button class="btn btn-primary" type="submit">Sort A-Z</button>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "Restaurants", FormMethod.Get))
+{
+    <div class="form-group">
+        <input name="sort" value="ZA" type="hidden" />
+        <button class="btn btn-primary" type="submit">Sort Z-A</button>
+    </div>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -33,32 +54,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Show", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Show", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

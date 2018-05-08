@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,11 +30,18 @@ namespace RestaurantReviews.Controllers
 
         [AllowAnonymous]
         [Route("restaurants")]
-        public ActionResult Index(string query = null)
+        public ActionResult Index(string query = null, string sort = null)
         {
-            var restaurants = query != null
-                ? _unitOfWork.Restaurants.SearchRestaurantsByName(query)
-                : _unitOfWork.Restaurants.GetAll();
+            IEnumerable<Restaurant> restaurants;
+
+            if (query != null)
+                restaurants = _unitOfWork.Restaurants.SearchRestaurantsByName(query);
+            else if (sort == "AZ")
+                restaurants = _unitOfWork.Restaurants.GetRestaurantsSortedByNameAZ();
+            else if (sort == "ZA")
+                restaurants = _unitOfWork.Restaurants.GetRestaurantsSortedByNameZA();
+            else
+                restaurants = _unitOfWork.Restaurants.GetAll();
 
             return User.Identity.IsAuthenticated && User.IsInRole(RoleName.CanManageRestaurants)
                 ? View("IndexAdmin", restaurants)
